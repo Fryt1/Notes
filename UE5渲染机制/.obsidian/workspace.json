@@ -1,0 +1,242 @@
+{
+  "main": {
+    "id": "bb7eb621eaeb9fd8",
+    "type": "split",
+    "children": [
+      {
+        "id": "23dc1f7641e7cc93",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "708598bb51ec87d8",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "关系图谱"
+            }
+          },
+          {
+            "id": "2477fe97d831ed76",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "struct FMeshBatchElement.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "struct FMeshBatchElement"
+            }
+          },
+          {
+            "id": "5f224a194ddf2865",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Excalidraw/UE5渲染架构.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "UE5渲染架构"
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3701b9e4ce2493e1",
+    "type": "split",
+    "children": [
+      {
+        "id": "f80be6566705ea92",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "525a80962f0dd12c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "a9c1742e00776d47",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "59271a6750a7f435",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 459.5
+  },
+  "right": {
+    "id": "b7622fff3d43f14c",
+    "type": "split",
+    "children": [
+      {
+        "id": "bedee63734ab6e50",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "94e2ad26fd9cb948",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Excalidraw/UE5渲染架构.md",
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "UE5渲染架构 的反向链接列表"
+            }
+          },
+          {
+            "id": "e0c91eb5b0dcf06a",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "欢迎.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "欢迎 的出链列表"
+            }
+          },
+          {
+            "id": "89ec69936bfee931",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "06b1bebcedb8bee4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Excalidraw/UE5渲染架构.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "UE5渲染架构 的大纲"
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "bases:创建新数据库": false,
+      "obsidian-excalidraw-plugin:新建绘图文件": false
+    }
+  },
+  "active": "5f224a194ddf2865",
+  "lastOpenFiles": [
+    "Pasted Image 20260111224625_482.png",
+    "Mesh Drawing Pipeline/Mesh Drawing Pipeline.md",
+    "Mesh Drawing Pipeline/GatherDynamicMeshElements.md",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/FDynamicMeshElementContextContainer.md",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/DynamicMeshElementContext.md",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/核心流程和数据流向.md",
+    "Mesh Drawing Pipeline/从FMeshBatch到FMeshDrawCommand/未命名.md",
+    "Excalidraw/UE5渲染架构.md",
+    "学习/📅 Phase 1 建立数据流认知 (Week 1-2).md",
+    "学习/UE5 学习计划.md",
+    "Excalidraw/从.md",
+    "资源图片/Pasted image 20251018165757.png",
+    "资源图片/addprimitive栈堆.png",
+    "资源图片/渲染流程.png",
+    "Pasted image 20260111211549.png",
+    "资源图片/Pasted image 20251018165701.png",
+    "Pasted image 20260111211509.png",
+    "Excalidraw/Drawing 2026-01-10 15.04.48.excalidraw.md",
+    "学习",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/FVertexFactory.md",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/FVisibilityTaskData.md",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/struct FMeshBatch.md",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/struct FMeshBatchElement.md",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/FPrimitiveSceneProxy.md",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/FMeshElementCollector.md",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/FMaterialRenderProxy.md",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/FSceneRenderer.md",
+    "616290a7-b174-42a7-8e74-b3179b581872.png",
+    "Mesh Drawing Pipeline/从FMeshBatch到FMeshDrawCommand",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch.7z",
+    "Excalidraw/Drawing 2025-10-16 22.03.27.excalidraw.md",
+    "Excalidraw/Drawing 2025-10-19 23.37.28.excalidraw.md",
+    "Mesh Drawing Pipeline/FVisibilityViewPacket.md",
+    "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch",
+    "Mesh Drawing Pipeline",
+    "资源图片",
+    "Pasted image 20251018165638.png",
+    "Pasted Image 20251018165606_479.png",
+    "Excalidraw/Drawing 2025-10-16 22.09.41.excalidraw.md",
+    "Excalidraw",
+    "FMeshBatchElement/未命名.md",
+    "FMeshBatchElement",
+    "创建链接.md"
+  ]
+}
