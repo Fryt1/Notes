@@ -60,13 +60,13 @@
 
 ### 💻 实战任务：数据劫持 (Coding Tasks)
 
-- [ ] **创建组件：** 新建 C++ 类 `UDistortionMeshComponent`，继承自 `UStaticMeshComponent`。
+- [x] **创建组件：** 新建 C++ 类 `UDistortionMeshComponent`，继承自 `UStaticMeshComponent`。
     
-- [ ] **创建代理：** 在组件内部新建类 `FDistortionSceneProxy`，继承自 `FStaticMeshSceneProxy`。
+- [x] **创建代理：** 在组件内部新建类 `FDistortionSceneProxy`，继承自 `FStaticMeshSceneProxy`。
     
-- [ ] **重写接口：** 在组件中重写 `CreateSceneProxy()`，返回你的自定义 Proxy。
+- [x] **重写接口：** 在组件中重写 `CreateSceneProxy()`，返回你的自定义 Proxy。
     
-- [ ] **实施劫持：**
+- [x] **实施劫持：**
     
     - 在 Proxy 中重写 `GetDynamicMeshElements`。
         
@@ -74,7 +74,7 @@
         
     - **Hack：** 在 C++ 中获取一个纯红色的材质，强制赋值给它。
         
-- [ ] **✅ 验收标准：** 场景中摆放石头模型的 `DistortionMeshComponent`，运行游戏后，模型变成了纯红色（完全绕过原本的材质设置）。
+- [x] **✅ 验收标准：** 场景中摆放石头模型的 `DistortionMeshComponent`，运行游戏后，模型变成了纯红色（完全绕过原本的材质设置）。
     
 
 ---

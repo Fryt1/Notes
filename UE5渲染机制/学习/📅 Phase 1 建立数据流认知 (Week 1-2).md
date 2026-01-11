@@ -512,7 +512,13 @@ FScene::AddPrimitive()                          ← 添加到渲染场景
 FScene::BatchAddPrimitivesInternal()            ← 批量处理优化
     ↓
 FActorPrimitiveInterface::CreateSceneProxy()    ← 开始创建 Proxy
+	|
+	|UPrimitiveComponent::CreateSceneProxy()    ← 使用接口做了包装做了其他处理
+	|                                             然后通过宏得到实际的组件进行调用
+	|                                            
     ↓
+UStaticMeshComponent::CreateSceneProxy() ← 派生类重写（虚函数分发到这里）
+	↓
 FStaticMeshComponentHelper::CreateSceneProxy()
     ↓
 UStaticMeshComponent::CreateStaticMeshSceneProxy()
@@ -581,3 +587,6 @@ flowchart TD
 | **场景注册**                                                     | AddPrimitive()                                                         |
 | **SceneProxy 对象**                                            | CreateSceneProxy()                                                     |
 **UStaticMeshComponent** 在注册时，通过 **CreateRenderState_Concurrent** 创建渲染状态（包围盒、裁剪距离、SceneProxy 等），并通过 **AddPrimitive** 将自身添加到 FScene。
+
+
+## 💻 实战任务：数据劫持 (Coding Tasks)
