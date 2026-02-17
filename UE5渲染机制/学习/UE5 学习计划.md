@@ -79,7 +79,7 @@
 
 ---
 
-## 📅 Phase 2: 深入指令生成 (Week 3-4)
+## 📅 Phase 2: 深入指令生成 (Week 3-4)[[📅 Phase 2 深入指令生成 (Week 3-4)]]
 
 目标： 介入渲染管线的“决策层”，控制“画什么”和“怎么画”。
 
@@ -87,11 +87,11 @@
 
 ### 📖 学习任务 (Study Tasks)
 
-- [ ] **死磕核心：** 阅读 `Engine/Source/Runtime/Renderer/Private/BasePassRendering.cpp`。
+- [x] **死磕核心：** 阅读 `Engine/Source/Runtime/Renderer/Private/BasePassRendering.cpp`。
     
-- [ ] **搜索关键词：** `AddMeshBatch`。这是所有不透明物体渲染逻辑的入口。
+	- [x] **搜索关键词：** `AddMeshBatch`。这是所有不透明物体渲染逻辑的入口。
     
-- [ ] **RenderDoc 逆向：** 截帧查看 Mesh 的 `Vertex Attributes`，回到源码寻找 `FMeshDrawCommand` 是在哪填充这些 Stream 的。
+- [x] **RenderDoc 逆向：** 截帧查看 Mesh 的 `Vertex Attributes`，回到源码寻找 `FMeshDrawCommand` 是在哪填充这些 Stream 的。
     
 
 ### 💻 实战任务：自定义 Processor (Coding Tasks)
