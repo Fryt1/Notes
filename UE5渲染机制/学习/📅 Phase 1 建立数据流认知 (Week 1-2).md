@@ -1,22 +1,23 @@
-
 # **关键函数：** 阅读 `FStaticMeshSceneProxy` 的构造函数。
 
-FStaticMeshSceneProxy是由游戏线程中的UStaticMeshComponent拷贝而来，不完全是深拷贝
+FStaticMeshSceneProxy 是由游戏线程中的 UStaticMeshComponent 拷贝而来，不完全是深拷贝
 
-比如RenderData就是直接获取的指针，直接获取资产里面的RenderData
+比如 RenderData 就是直接获取的指针，直接获取资产里面的 RenderData
 
-还有的是复制值到代理类，比如bCastShadow
+还有的是复制值到代理类，比如 bCastShadow
 
+然后 FStaticMeshSceneProxy 构造函数里面比较重要的是
+- RenderData
+- LODs 数组构建
+- DistanceField 数据
 
-然后FStaticMeshSceneProxy构造函数里面比较重要的是
--  RenderData
- - LODs 数组构建
- - DistanceField 数据
 ## RenderData
+
 ```
 , RenderData(InProxyDesc.GetStaticMesh()->GetRenderData())
 ```
-直接引用==UStaticMeshComponent中的RenderData==来初始化==FStaticMeshSceneProxy==
+
+直接引用==UStaticMeshComponent 中的 RenderData==来初始化==FStaticMeshSceneProxy==
 
 ```
 class FStaticMeshRenderData
@@ -41,7 +42,9 @@ public:
     ......
 };
 ```
+
 **FStaticMeshRenderData = 顶点 + 索引 + 材质分区（section） + LOD 信息 + Nanite + 距离场，一切渲染需要的数据。**
+
 ## LODs 数组构建
 
 ```
@@ -85,7 +88,9 @@ public:
 
     }
 ```
+
 ### FLODInfo
+
 ```
 class FLODInfo : public FLightCacheInterface
 
@@ -159,8 +164,11 @@ bool bUsesMeshModifyingMaterials; // 是否有网格修改材质 (WPO/Tessellati
 
 };
 ```
-**FLODInfo = Section材质信息 + 颜色覆盖 + 光照缓存 + 编辑器支持**
+
+**FLODInfo = Section 材质信息 + 颜色覆盖 + 光照缓存 + 编辑器支持**
+
 ## DistanceField 数据
+
 ```
     // Copy the pointer to the volume data, async building of the data may modify the one on FStaticMeshLODResources while we are rendering
 
@@ -178,6 +186,7 @@ bool bUsesMeshModifyingMaterials; // 是否有网格修改材质 (WPO/Tessellati
 
     DistanceFieldSelfShadowBias = FMath::Max(InProxyDesc.bOverrideDistanceFieldSelfShadowBias ? InProxyDesc.DistanceFieldSelfShadowBias : InProxyDesc.GetStaticMesh()->DistanceFieldSelfShadowBias, 0.0f);
 ```
+
 ### 复制距离场数据指针
 
 ```
@@ -211,7 +220,7 @@ bSupportsDistanceFieldRepresentation =
     && DistanceFieldData->IsValid();                 // 数据有效
 ```
 
-**结果**: 
+**结果**:
 
 ```
 bSupportsDistanceFieldRepresentation = true/false
@@ -235,6 +244,7 @@ bCastsDynamicIndirectShadow =
     && !InProxyDesc.bIsFirstPerson;             // 不是第一人称物体
 
 ```
+
 **结果**: 动态物体是否通过距离场投射软阴影
 
 ---
@@ -258,6 +268,7 @@ DynamicIndirectShadowMinVisibility = FMath::Clamp(
 ---
 
 ### 自阴影偏移
+
 ```
 DistanceFieldSelfShadowBias = FMath::Max(
 
@@ -273,9 +284,11 @@ DistanceFieldSelfShadowBias = FMath::Max(
 ```
 
 **作用**: 防止物体给自己产生错误阴影（阴影痤疮/漏光）
+
 # LOD 资源如何塞进 FMeshBatch：完整流程分析
 
 - [x] **核心逻辑：** 深入阅读 `GetDynamicMeshElements`。思考它是如何把 LOD 资源塞进 `FMeshBatch` 的。
+
 ### 大概流程
 GetDynamicMeshElements()
 │
@@ -295,7 +308,7 @@ GetDynamicMeshElements()
 │           │   特点: 合并所有 Section，用统一线框材质
 │           │
 │           └─【普通模式分支】
-│               调用: GetMeshElement() 
+│               调用: GetMeshElement()
 │               for each Section:
 │                   └─ 填充 FMeshBatch
 │                       ├─ 调试材质覆盖（物理遮罩/顶点色）
@@ -307,7 +320,9 @@ GetDynamicMeshElements()
     ├─ 简单碰撞: BodySetup->AggGeom
     ├─ 质量属性
     └─ 边界框
+
 ### 数据流
+
 ```
 RenderData->LODResources[LODIndex]
     ├── Sections[SectionIndex]
@@ -328,6 +343,7 @@ LODs[LODIndex] (FLODInfo)
 
 ### 主渲染
 主要就是看这部分，主渲染可以分成四个循环
+
 ```
 for (View)              // 每个摄像机视角
   for (LOD)             // LODMask 决定渲染哪个 LOD
@@ -335,7 +351,9 @@ for (View)              // 每个摄像机视角
       for (Batch)       // 通常为 1
         → GetMeshElement() → Collector.AddMesh()
 ```
+
 ### View
+
 ```
 for (int32 ViewIndex = 0; ViewIndex < Views.Num(); ViewIndex++)
 {
@@ -351,10 +369,11 @@ for (int32 ViewIndex = 0; ViewIndex < Views.Num(); ViewIndex++)
 - Views  包含所有需要渲染的视图（主视口、阴影视图、反射捕获等）
 - VisibilityMap 是可见性剔除结果的位图，(1 << ViewIndex) 检查该 Primitive 在这个 View 是否可见
 - IsShown(View) ：检查 Actor 的显示/隐藏标志
-- GetLODMask(View)：根据视图的位置和投影矩阵，计算应该用哪个 LOD 级别。返回 
+- GetLODMask(View)：根据视图的位置和投影矩阵，计算应该用哪个 LOD 级别。返回
 	FLODMask，可能包含 1 个 LOD（正常）或 2 个 LOD（抖动过渡时）
 
 ### LOD 循环
+
 ```
 for (int32 LODIndex = 0; LODIndex < RenderData->LODResources.Num(); LODIndex++)
 {
@@ -371,6 +390,7 @@ for (int32 LODIndex = 0; LODIndex < RenderData->LODResources.Num(); LODIndex++)
 - **ProxyLODInfo**： FLODInfo，Proxy 缓存的该 LOD 信息，主要是材质、光照贴图、顶点色覆盖
 
 ### **Section 和 Batch 循环**
+
 ```
 for (int32 SectionIndex = 0; SectionIndex < LODModel.Sections.Num(); SectionIndex++)
 {
@@ -380,10 +400,13 @@ for (int32 SectionIndex = 0; SectionIndex < LODModel.Sections.Num(); SectionInde
     {
         FMeshBatch& MeshElement = Collector.AllocateMesh();
 ```
+
 - **Section 循环**：一个 LOD 可以有多个 Section，**每个 Section 对应一个材质槽**。比如一个角色模型：Section 0 是皮肤材质，Section 1 是衣服材质
 - **Batch 循环**：   GetNumMeshBatches() 通常返回 1。如果有 GPU 蒙皮（Morph Target 等），可能返回多个
 - **Collector.AllocateMesh()**：从 Collector 的内存池分配一个空的 FMeshBatch，避免频繁 new/delete
+
 ### **编辑器选中状态**
+
 ```
 #if WITH_EDITOR
 if (GIsEditor)
@@ -399,13 +422,17 @@ if (GIsEditor)
 }
 #endif
 ```
-- **FrontBackFace模式**：关闭背面剔除，可以用于检查模型法线方向
+
+- **FrontBackFace 模式**：关闭背面剔除，可以用于检查模型法线方向
 - **bSectionIsSelected：** 在编辑器中选中某个 Section（材质槽）时为 true
 - **BatchHitProxyId**：给这个 MeshBatch 分配一个 HitProxy ID。编辑器点击场景时，GPU 渲染一张 ID 图，读取点击位置的 ID 就能知道点了哪个物体的哪个 Section
+
 ### **GetMeshElement - 核心填充**
+
 ```
 if (GetMeshElement(LODIndex, BatchIndex, SectionIndex, SDPG_World, bSectionIsSelected, true, MeshElement))
 ```
+
 **作用**：把 LOD 资源数据填入 **FMeshBatch**，具体做了：
 
 | 填充内容                                    | 数据来源                                             | 用途                    |
@@ -418,7 +445,9 @@ if (GetMeshElement(LODIndex, BatchIndex, SectionIndex, SDPG_World, bSectionIsSel
 | LCI (Light Cache Interface)             | ```<br>&ProxyLODInfo<br>```                      | 光照贴图、阴影贴图             |
 | ```<br>LODIndex<br>```                  | 直接赋值                                             | 用于统计、调试               |
 | ```<br>CastShadow<br>```                | ```<br>bCastShadow && Section.bCastShadow<br>``` | 该 MeshBatch 是否参与阴影计算  |
+
 ### **调试材质覆盖**
+
 ```
 // 物理材质遮罩可视化
 if (bProxyIsSelected && EngineShowFlags.PhysicalMaterialMasks)
@@ -438,11 +467,14 @@ if (bSectionIsSelected)
     MeshElement.MaterialRenderProxy = new FOverrideSelectionColorMaterialRenderProxy(...);
 }
 ```
+
 - 如果开启了调试视图模式，**替换掉原本的材质**，改成调试用材质
 - 物理材质遮罩：显示物理材质 Mask 贴图
 - 顶点色：显示模型的顶点色数据
 - 选中高亮：编辑器中选中 Section 时，用橙色高亮替换材质
+
 ### **抖动 LOD 处理**
+
 ```
 if (MeshElement.bDitheredLODTransition && LODMask.IsDithered())
 {
@@ -453,11 +485,13 @@ else
     MeshElement.bDitheredLODTransition = false;
 }
 ```
+
 - **抖动 LOD 过渡**：当物体从 LOD0 切换到 LOD1 时，不是瞬间切换，而是两个 LOD 同时渲染，用抖动图案混合（像棋盘格一样交错）
 - **LODMask.IsDithered()：** GetLODMask 计算出需要抖动过渡
 - **bDitheredLODTransition = true** 时，Shader 会根据屏幕位置决定显示哪个 LOD 的像素
 
 ### **提交到 Collector**
+
 ```
 MeshElement.bCanApplyViewModeOverrides = true;
 MeshElement.bUseWireframeSelectionColoring = bSectionIsSelected;
@@ -470,13 +504,14 @@ INC_DWORD_STAT_BY(STAT_StaticMeshTriangles, MeshElement.GetNumPrimitives());
 - **bUseWireframeSelectionColoring**：选中时，线框颜色会变成选中色
 - **Collector.AddMesh(ViewIndex, MeshElement)** : 最终提交！把这个**FMeshBatch**放入 Collector 关联到指定 **View**
 - 累加统计三角形数量用于 Stat 显示
+
 ## 最终：一个 Section 产生一个 FMeshBatch
 
        ┌─────────────────────────────────────────────────────────┐
        │ RenderData->LODResources[LODIndex]                      │
-       │     ├── Sections[0] ──► FMeshBatch #1 (材质A)            │
-       │     ├── Sections[1] ──► FMeshBatch #2 (材质B)            │
-       │     └── Sections[2] ──► FMeshBatch #3 (材质C)            │
+       │     ├── Sections[0] ──► FMeshBatch #1 (材质 A)            │
+       │     ├── Sections[1] ──► FMeshBatch #2 (材质 B)            │
+       │     └── Sections[2] ──► FMeshBatch #3 (材质 C)            │
        │                                                         │
        │ 每个 FMeshBatch 包含：                                   │
        │     - VertexFactory (顶点数据在哪)                       │
@@ -485,14 +520,14 @@ INC_DWORD_STAT_BY(STAT_StaticMeshTriangles, MeshElement.GetNumPrimitives());
        │     - LCI (光照贴图)                                     │
        └─────────────────────────────────────────────────────────┘
 
-
- # **断点追踪：** 在 `FScene::AddPrimitive` 打断点，拖入一个 Cube，观察 Call Stack，理解 Proxy 是何时被创建的。
+# **断点追踪：** 在 `FScene::AddPrimitive` 打断点，拖入一个 Cube，观察 Call Stack，理解 Proxy 是何时被创建的。
 
 ### 栈堆
-从placeasset面板加入模型的栈堆调用
-![[资源图片/addprimitive栈堆.png]]
+从 placeasset 面板加入模型的栈堆调用
+![[资源图片/addprimitive 栈堆.png]]
 
 ## 调用流程
+
 ```
 📍 用户操作入口
 UPlacementSubsystem::PlaceAsset()               ← Place Actors 拖入
@@ -525,7 +560,9 @@ UStaticMeshComponent::CreateStaticMeshSceneProxy()
     ↓
 🎯 FStaticMeshSceneProxy::FStaticMeshSceneProxy()  ← 构造函数（断点位置）
 ```
+
 ## 继承链
+
 ```
 UObject
     └── UActorComponent                    ← 所有组件的基类
@@ -535,13 +572,14 @@ UObject
                                     └── UStaticMeshComponent   ← 静态网格
 ```
 
-| 问题                | 答案                                                                            |     |     |
-| ----------------- | ----------------------------------------------------------------------------- | --- | --- |
-| **Proxy 什么时候创建？** | 组件注册到世界时（<br><br>```<br>RegisterComponentWithWorld<br>```<br><br>）            |     |     |
-| **在哪里创建？**        | ```<br>AddPrimitive<br>```<br><br> → <br><br>```<br>CreateSceneProxy()<br>``` |     |     |
-| **谁决定创建什么类型？**    | 组件的虚函数 <br><br>```<br>CreateSceneProxy()<br>```                               |     |     |
-| **创建后存在多久？**      | 直到组件被 Unregister 或主动销毁                                                        |     |     |
-| **我要自定义怎么办？**     | 重写 <br><br>```<br>CreateSceneProxy()<br>```<br><br>，返回自定义 Proxy               |     |     |
+| 问题                | 答案                                                                            |
+| ----------------- | ----------------------------------------------------------------------------- |
+| **Proxy 什么时候创建？** | 组件注册到世界时（<br><br>```<br>RegisterComponentWithWorld<br>```<br><br>）            |
+| **在哪里创建？**        | ```<br>AddPrimitive<br>```<br><br> → <br><br>```<br>CreateSceneProxy()<br>``` |
+| **谁决定创建什么类型？**    | 组件的虚函数 <br><br>```<br>CreateSceneProxy()<br>```                               |
+| **创建后存在多久？**      | 直到组件被 Unregister 或主动销毁                                                        |
+| **我要自定义怎么办？**     | 重写 <br><br>```<br>CreateSceneProxy()<br>```<br><br>，返回自定义 Proxy               |
+
 ## 流程图
 
 ```mermaid
@@ -574,8 +612,7 @@ flowchart TD
 简单来说就是
 **组件注册 → 创建渲染状态 → AddPrimitive → CreateSceneProxy → 渲染线程用 Proxy 生成 MeshBatch → GPU 绘制。**
 
-
-当 **UStaticMeshComponent**（或其他 **UPrimitiveComponent** **子类**）注册到世界时，会触发 **CreateRenderState_Concurrent**（**设置改组件的渲染状态**） ，在其中调用 **FScene::AddPrimitive 把自己添加到渲染场景**，并通过 **CreateSceneProxy 创建对应的 FStaticMeshSceneProxy（渲染代理）**，供渲染线程使用。
+当 **UStaticMeshComponent**（或其他 **UPrimitiveComponent** **子类**）注册到世界时，会触发 **CreateRenderState_Concurrent**（**设置该组件的渲染状态**） ，在其中调用 **FScene::AddPrimitive 把自己添加到渲染场景**，并通过 **CreateSceneProxy 创建对应的 FStaticMeshSceneProxy（渲染代理）**，供渲染线程使用。
 
 ## "渲染状态" 包含什么
 
@@ -587,6 +624,5 @@ flowchart TD
 | **场景注册**                                                     | AddPrimitive()                                                         |
 | **SceneProxy 对象**                                            | CreateSceneProxy()                                                     |
 **UStaticMeshComponent** 在注册时，通过 **CreateRenderState_Concurrent** 创建渲染状态（包围盒、裁剪距离、SceneProxy 等），并通过 **AddPrimitive** 将自身添加到 FScene。
-
 
 ## 💻 实战任务：数据劫持 (Coding Tasks)

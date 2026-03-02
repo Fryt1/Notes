@@ -8,10 +8,9 @@
 FPrimitiveSceneInfo* PrimitiveSceneInfo; // 对应的场景图元信息
 ```
 
-### 成员在MeshBatch收集中的作用
+### 成员在 MeshBatch 收集中的作用
 
 - **PrimitiveSceneInfo**：连接渲染代理与场景图元数据的桥梁
-    
 
 ### 关键方法
 

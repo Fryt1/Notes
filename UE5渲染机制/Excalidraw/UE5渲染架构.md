@@ -84,7 +84,7 @@ UPrimitiveComponent(子类UStaticMeshComponent） ^GBTJ4inb
 
 1：调用GatherDynamicMeshElements方法创建PrimitiveIndex队列 ^4JlNfmOl
 
-2：调用LaunchAsyncTaskt启动任务 ^Vu3ERc1y
+2：调用LaunchAsyncTask启动任务 ^Vu3ERc1y
 
 FViewInfo ^XoaSA1Df
 
@@ -163,7 +163,7 @@ UPrimitiveComponent（可以是子类） ^nXscS4PH
 
 3：CreateRenderState_Concurrent调用Fscene.AddPrimitive调用UPrimitiveComponent->CreateSceneProxy() 得到FPrimitiveSceneProxy  ^SNhX4DoL
 
-也就就是动态路径下可以通过修改UPrimitiveComponent->CreateSceneProxy() 来做到劫持模型的材质，顶点等数据 ^KTWKb3w6
+也就是动态路径下可以通过修改UPrimitiveComponent->CreateSceneProxy() 来做到劫持模型的材质，顶点等数据 ^KTWKb3w6
 
 ## Element Links
 LNAEhkwF: obsidian://open?vault=UE5%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6&file=%E5%AD%A6%E4%B9%A0%2F%F0%9F%93%85%20Phase%201%20%E5%BB%BA%E7%AB%8B%E6%95%B0%E6%8D%AE%E6%B5%81%E8%AE%A4%E7%9F%A5%20(Week%201-2)

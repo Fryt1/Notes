@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "学习/📅 Phase 2 深入指令生成 (Week 3-4).md",
+                "file": "学习/📅 Phase 3 Shader 绑定与几何突变 (Week 5-6).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "📅 Phase 2 深入指令生成 (Week 3-4)"
+              "title": "📅 Phase 3 Shader 绑定与几何突变 (Week 5-6)"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "学习/📅 Phase 2 深入指令生成 (Week 3-4).md",
+                "file": "学习/📅 Phase 3 Shader 绑定与几何突变 (Week 5-6).md",
                 "followCursor": true,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "📅 Phase 2 深入指令生成 (Week 3-4) 的大纲"
+              "title": "📅 Phase 3 Shader 绑定与几何突变 (Week 5-6) 的大纲"
             }
           }
         ],
@@ -172,26 +172,28 @@
   },
   "active": "708598bb51ec87d8",
   "lastOpenFiles": [
-    "学习/UE5 学习计划.md",
     "学习/📅 Phase 2 深入指令生成 (Week 3-4).md",
-    "学习/📅 Phase 1 建立数据流认知 (Week 1-2).md",
-    "Excalidraw/UE5渲染架构.md",
-    "资源图片/渲染流程.png",
+    "学习/📅 Phase 3 Shader 绑定与几何突变 (Week 5-6).md",
+    "学习/UE5 学习计划.md",
+    "未命名",
+    "Mesh Drawing Pipeline/Mesh Drawing Pipeline.md",
+    "Mesh Drawing Pipeline/GatherDynamicMeshElements.md",
+    "资源图片/Pasted image 20251018165757.png",
+    "资源图片/Pasted image 20251018165701.png",
     "资源图片/addprimitive栈堆.png",
+    "资源图片/渲染流程.png",
+    "学习/📅 Phase 1 建立数据流认知 (Week 1-2).md",
+    "Pasted image 20260218224346.png",
+    "Excalidraw/UE5渲染架构.md",
     "Excalidraw/从.md",
     "未命名 2.base",
     "未命名 1.base",
     "未命名.base",
     "Pasted image 20260126205637.png",
-    "资源图片/Pasted image 20251018165757.png",
-    "资源图片/Pasted image 20251018165701.png",
     "Pasted image 20260126205624.png",
     "Pasted image 20260126205004.png",
     "Pasted image 20260126204939.png",
     "Pasted image 20260126204927.png",
-    "Pasted Image 20260111224625_482.png",
-    "Mesh Drawing Pipeline/GatherDynamicMeshElements.md",
-    "Mesh Drawing Pipeline/Mesh Drawing Pipeline.md",
     "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/FDynamicMeshElementContextContainer.md",
     "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/DynamicMeshElementContext.md",
     "Mesh Drawing Pipeline/从FPrimitiveSceneProxy到FMeshBatch/核心流程和数据流向.md",
@@ -215,7 +217,6 @@
     "Mesh Drawing Pipeline",
     "资源图片",
     "Excalidraw/Drawing 2025-10-16 22.09.41.excalidraw.md",
-    "Excalidraw",
     "FMeshBatchElement/未命名.md"
   ]
 }

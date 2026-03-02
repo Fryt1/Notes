@@ -1,10 +1,9 @@
-在Engine/Source/Runtime/Renderer/Private/SceneVisibility.cpp
+在 Engine/Source/Runtime/Renderer/Private/SceneVisibility.cpp
 
-UE5.54版本该方法是改成了
+UE5.54 版本该方法是改成了
 FVisibilityTaskData::GatherDynamicMeshElements
 
 在 void FDeferredShadingSceneRenderer::Render(FRDGBuilder& GraphBuilder)中的
-
 
 ```
 //其中会调用FVisibilityTaskData::GatherDynamicMeshElements
@@ -12,7 +11,8 @@ RDG_EVENT_SCOPE_STAT(GraphBuilder, VisibilityCommands, "VisibilityCommands");
 RDG_GPU_STAT_SCOPE(GraphBuilder, VisibilityCommands);  
 BeginInitViews(GraphBuilder, SceneTexturesConfig, InstanceCullingManager, ExternalAccessQueue, InitViewTaskDatas);
 ```
-然后FVisibilityTaskData::GatherDynamicMeshElements会通过任务系统来调用
+
+然后 FVisibilityTaskData::GatherDynamicMeshElements 会通过任务系统来调用
 FDynamicMeshElementContext::GatherDynamicMeshElementsForPrimitive
 
 ```
@@ -25,9 +25,11 @@ if (!DynamicPrimitiveIndexList.IsEmpty())
     {       Tasks.DynamicMeshElements.AddPrerequisites(DynamicMeshElements.ContextContainer.LaunchAsyncTask(Queue, Index, TaskConfig.TaskPriority));  
     }}
 ```
+
 **DynamicMeshElements.ContextContainer.LaunchAsyncTask(Queue, Index, TaskConfig.TaskPriority)**这个依赖任务的具体实现
 
-zhe'bu重要代码是 **Primitive->Proxy->GetDynamicMeshElements(FirstViewFamily.AllViews, *Group.Family, MaskedViewMask, MeshCollector);**  
+这步重要代码是 **Primitive->Proxy->GetDynamicMeshElements(FirstViewFamily.AllViews, *Group.Family, MaskedViewMask, MeshCollector);**
+
 ```
 void FDynamicMeshElementContext::GatherDynamicMeshElementsForPrimitive
 (FPrimitiveSceneInfo* Primitive, uint8 ViewMask)  
@@ -63,7 +65,8 @@ void FDynamicMeshElementContext::GatherDynamicMeshElementsForPrimitive
 ```
 
 ## 处理动态网格元素的相关性
-这部分被改到了FVisibilityTaskData::SetupMeshPasses中
+这部分被改到了 FVisibilityTaskData::SetupMeshPasses 中
+
 ```
 void FVisibilityTaskData::SetupMeshPasses(...)
 {
