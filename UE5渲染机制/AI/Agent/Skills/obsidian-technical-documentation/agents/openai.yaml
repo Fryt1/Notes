@@ -1,0 +1,4 @@
+interface:
+  display_name: "Obsidian Technical Documentation"
+  short_description: "Write maintainable, reader-first technical notes for Obsidian."
+  default_prompt: "Use $obsidian-technical-documentation to turn this code or research into a clear Obsidian technical note."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Obsidian Git Workflow"
+  short_description: "安全编写 Obsidian 笔记并按确认提交 Git。"
+  default_prompt: "Use $obsidian-git-workflow to update an Obsidian Vault and prepare a reviewed Git commit."
