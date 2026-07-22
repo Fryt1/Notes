@@ -1,0 +1,14 @@
+# Per-device Obsidian UI state. Keep shared settings and plugin manifests tracked.
+**/.obsidian/workspace.json
+**/.obsidian/workspace-mobile.json
+**/.obsidian/cache/
+**/.obsidian/.trash/
+**/.trash/
+
+# The Local REST API plugin's data file can contain a per-device API key.
+**/.obsidian/plugins/obsidian-local-rest-api/data.json
+
+# Operating-system metadata.
+.DS_Store
+Thumbs.db
+desktop.ini
